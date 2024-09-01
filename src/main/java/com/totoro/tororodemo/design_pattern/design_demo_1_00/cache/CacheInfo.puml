@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface ICacheService {
+    + String get(final String key);
+
+    + void set(String key, String value);
+
+    + void set(String key, String value, long timeout, TimeUnit timeUnit);
+
+    + void del(String key);
+}
+
+class CacheServiceImpl {
+    + String get(final String key);
+
+    + void set(String key, String value);
+
+    + void set(String key, String value, long timeout, TimeUnit timeUnit);
+
+    + void del(String key);
+}
+
+CacheServiceImpl --|> ICacheService
+
+
+
+@enduml

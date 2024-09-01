@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: TororoDemo
+  datasource:
+    url: jdbc:mysql://localhost:3306/dbtest1
+    username: root
+    password: zh5201314
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+
+server:
+  port: 8003
+
+logging:
+  config: classpath:logback.xml
+
+
+totoro:
+  door:
+    enabled: true
+    userStr: 1001,aaaa,cccc # 多个白名单用户逗号分割
