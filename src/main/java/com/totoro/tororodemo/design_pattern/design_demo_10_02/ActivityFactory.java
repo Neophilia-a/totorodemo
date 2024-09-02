@@ -11,7 +11,7 @@ import java.util.Map;
  * @date 2024/9/1
  */
 public class ActivityFactory {
-    static Map<Long, Activity> activityMap = new HashMap<Long, Activity>();
+    static Map<Long, Activity> activityMap = new HashMap<>();
 
     public static Activity getActivity(Long id) {
         Activity activity = activityMap.get(id);
