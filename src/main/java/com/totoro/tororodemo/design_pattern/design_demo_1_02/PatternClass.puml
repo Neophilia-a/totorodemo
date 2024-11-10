@@ -1,0 +1,71 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+' 工厂的具体操作类
+package AbstractFactoryPattern {
+    abstract A1 {
+        + methodA1
+    }
+
+    abstract A2 {
+        + methodA2
+    }
+
+    ' 分组一实现 A类的两个
+    class B1 {
+        + methodA1
+    }
+
+    class B2 {
+        + methodA2
+    }
+
+    ' 分组二实现 A类的两个
+    class C1 {
+        + methodA1
+    }
+
+    class C2 {
+        + methodA2
+    }
+
+    B1 -up--|> A1
+    B2 -up--|> A2
+    C1 -up--|> A1
+    C2 -up--|> A2
+}
+
+' 工厂
+package Factory {
+    abstract AbstractFactory {
+        + A1 createA1()
+        + A2 createA2()
+    }
+
+    class FactoryB {
+        + A1 createA1()
+        + A2 createA2()
+    }
+
+    class FactoryC {
+        + A1 createA1()
+        + A2 createA2()
+    }
+
+    FactoryB -down--|> AbstractFactory
+    FactoryC -down--|> AbstractFactory
+}
+
+AbstractFactoryPattern.B1 --* Factory.FactoryB
+AbstractFactoryPattern.B2 --* Factory.FactoryB
+
+AbstractFactoryPattern.C1 --* Factory.FactoryC
+AbstractFactoryPattern.C2 --* Factory.FactoryC
+
+class Application {
+    + AbstractFactory abstractFactory
+    + Application(AbstractFactory abstractFactory)
+    + createFactory()
+}
+Factory.AbstractFactory --* Application
+@enduml
