@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+package FactoryMethodPattern {
+    interface A1 {
+        + methods1
+    }
+
+    class B1 {
+        + methods1
+    }
+    class B2 {
+        + methods1
+    }
+    class B3 {
+        + methods1
+    }
+
+    B1 -up..|> A1
+    B2 -up..|> A1
+    B3 -up..|> A1
+}
+
+class Factory {
+    + A1 createMethods(String type)
+}
+FactoryMethodPattern.B1 --* Factory
+FactoryMethodPattern.B2 --* Factory
+FactoryMethodPattern.B3 --* Factory
+
+@enduml
