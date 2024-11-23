@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+' 每个材料需要实现的类
+interface Matter {
+    String scene()
+    String brand()
+    String model()
+    BigDecimal price()
+    String desc()
+}
+package materials {
+    ' 吊顶类
+    class LevelOneCeiling
+    class LevelTwoCeiling
+
+    ' 涂料
+    class DuluxCoat
+    class LiBangCoat
+
+    ' 地板
+    class DerFloor
+    class ShengXiangFloor
+
+    ' 地砖
+    class DongPengTile
+    class MarcoPoloTile
+}
+materials -up..|> Matter
+
+interface IMenu {
+    IMenu appendCeiling(Matter matter)
+    IMenu appendCoat(Matter matter)
+    IMenu appendFloor(Matter matter)
+    IMenu appendTile(Matter matter)
+    String getDetail()
+}
+materials -left--* IMenu
+
+DecorationPackageMenu -up..|> IMenu
+
+class Builder
+IMenu -down--* Builder
+DecorationPackageMenu --* Builder
+
+@enduml
