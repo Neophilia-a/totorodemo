@@ -35,12 +35,12 @@ interface IMenu {
     IMenu appendTile(Matter matter)
     String getDetail()
 }
-materials -left--* IMenu
+Matter -left--* IMenu
 
 DecorationPackageMenu -up..|> IMenu
 
 class Builder
-IMenu -down--* Builder
+IMenu -left--* Builder
 DecorationPackageMenu --* Builder
 
 @enduml
