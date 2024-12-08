@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface Cloneable
+
+class QuestionBank {
+    + clone()
+}
+QuestionBank -up..|> Cloneable
+
+class QuestionBankController
+QuestionBank --* QuestionBankController
+
+@enduml
