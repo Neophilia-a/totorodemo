@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package MQ适配器 {
+    class RebateInfo {
+    '用户ID
+        - private String userId;
+    '业务ID
+        - private String bizId;
+    '业务时间
+        - private Date bizTime;
+    '业务描述
+        - private String desc;
+    }
+    class MQAdapter {
+        + filter(String strJson, Map<String, String> link)
+    }
+    note right: strJson是未适配前对应的 属性:值。\nlink是统一属性对应的数据 \n标配的属性:mq发过来对应的属性
+
+    RebateInfo -up--* MQAdapter
+}
+note "最后所有mq的消息都会被转为统一的RebateInfo，数据进行统一处理" as N1
+N1 .. MQ适配器
+
+package 接口统一适配 {
+    interface IOrderAdapterService {
+        + boolean isFirst(String uId);
+    }
+
+    ' 自营商家的首单逻辑
+    class InsideOrderServiceImpl {
+        + public boolean isFirst(String uId);
+    }
+    note right: 这里调用OrderService的queryUserOrderCount方法
+
+    class OrderService {
+        public long queryUserOrderCount(String userId)
+    }
+    OrderService -up--* InsideOrderServiceImpl
+    InsideOrderServiceImpl -up..|> IOrderAdapterService
+
+
+    ' 公司商家的首单逻辑
+    class POPOrderAdapterServiceImpl {
+        + public boolean isFirst(String uId);
+    }
+    note right: 这里调用POPOrderService的isFirstOrder方法
+
+    class POPOrderService {
+        public boolean isFirstOrder(String uId);
+    }
+    POPOrderService -up--* POPOrderAdapterServiceImpl
+    POPOrderAdapterServiceImpl -up..|> IOrderAdapterService
+}
+note "将不同商家类型判断是否首单的东西统一逻辑" as N2
+N2 .. 接口统一适配
+
+
+@enduml
