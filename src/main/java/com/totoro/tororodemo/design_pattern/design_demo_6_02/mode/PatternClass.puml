@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class A {
+    + void A(B b)
+}
+
+interface B
+
+class BImpl
+
+BImpl -up..|> B
+
+B --* A
+
+@enduml
