@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface HandlerInterceptor {
+    + boolean preHandle(String request, String response, Object handler);
+}
+
+' 原有的SSO拦截逻辑
+class SsoInterceptor {
+    + boolean preHandle(String request, String response, Object handler);
+}
+SsoInterceptor -up..|> HandlerInterceptor
+
+package Decorator {
+    class SsoDecorator {
+        - HandlerInterceptor handlerInterceptor
+        - SsoDecorator()
+        + SsoDecorator(HandlerInterceptor handlerInterceptor)
+        + boolean preHandle(String request, String response, Object handler)
+    }
+    SsoDecorator -up..|> HandlerInterceptor
+
+    class LoginSsoDecorator {
+        + LoginSsoDecorator(HandlerInterceptor handlerInterceptor)
+        '    这里实现自己新增的逻辑
+        + boolean preHandle(String request, String response, Object handler)
+    }
+    LoginSsoDecorator -up--|> SsoDecorator
+}
+
+@enduml
